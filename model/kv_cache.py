@@ -47,6 +47,6 @@ class CachedAttention(nn.Module):
         k, v = kv_cache.update(k, v)
 
         batch_size, seq_len, model_dim = k.shape
-        attn_scores = q @ k.transpose(1, 2) / (model_dim ** 0.5)
+        attn_scores = q @ k.mT / (model_dim ** 0.5)
         outputs = torch.softmax(attn_scores, dim=-1) @ v
         return torch.round(outputs, decimals=4), kv_cache
