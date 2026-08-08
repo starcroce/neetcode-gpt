@@ -38,6 +38,6 @@ class GroupedQueryAttention(nn.Module):
         attn_weights = torch.softmax(attn_scores, dim=-1)
         context = attn_weights @ v
 
-        context = context.transpose(1, 2).contiguous().reshape(B, T, self.num_heads * self.head_dim)
+        context = context.transpose(1, 2).reshape(B, T, self.num_heads * self.head_dim)
         outputs = self.output_proj(context)
         return torch.round(outputs, decimals=4)
