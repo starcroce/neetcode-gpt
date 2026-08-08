@@ -38,7 +38,7 @@ class SingleHeadAttention(nn.Module):
         v = self.value(embedded)
         attn_scores = q @ k.mT / math.sqrt(self.attn_dim)
 
-        seq_len = embedded.shape[1]
+        batch_size, seq_len, model_dim = embedded.shape
         mask = torch.tril(
             torch.ones(
                 seq_len,
